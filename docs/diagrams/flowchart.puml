@@ -1,0 +1,42 @@
+@startuml
+skinparam shadowing false
+
+|Host(Mac or Win)|
+
+start
+
+if (Vagrant+VirtualBoxの環境はある?) then (Yes)
+else (No)
+  if (Mac or Win?) then (Mac)
+    :環境をHomeBrewで用意;
+  else (Win)
+    :あとで書く（WSLでやりたい);
+  endif
+endif
+
+:git clone 〇〇git;
+
+repeat
+:cd 〇〇;
+:Vagrantfileを編集（しなくてもよい）;
+:make up か vagrant up;
+
+if (どうやってつなぐ？) then (VSCodeのプラグインで)
+  :VMにVSCodeでつなぐ;
+  :開発;
+else (ターミナル)
+  :vagrant atago;
+  |#AntiqueWhite|VM(atago)|
+  :開発;
+  :Ctrl + dでvmから抜ける;
+endif
+|Host(Mac or Win)|
+if (VMを) then (停止)
+  :vagrant halt;
+else (削除)
+  :vagrant destroy;
+endif
+repeat while
+
+stop
+@enduml
